@@ -1,0 +1,170 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > ValuableTransporter</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">Assigment4.miningOperation</a>
+</div>
+
+<h1>Coverage Summary for Class: ValuableTransporter (Assigment4.miningOperation)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ValuableTransporter</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/19)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package Assigment4.miningOperation;
+&nbsp;
+&nbsp;import Assigment4.actors.TreasureRoomGuardsman;
+&nbsp;import Assigment4.log.Log;
+&nbsp;import Assigment4.model.Valuables;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Random;
+&nbsp;
+&nbsp;public class ValuableTransporter implements Runnable {
+&nbsp;    private Deposit&lt;Valuables&gt; deposit;
+<b class="nc">&nbsp;    private Random random = new Random();</b>
+&nbsp;    private TreasureRoomGuardsman treasureRoom;
+&nbsp;
+<b class="nc">&nbsp;    public ValuableTransporter(TreasureRoomGuardsman treasureRoom, Deposit&lt;Valuables&gt; deposit) {</b>
+<b class="nc">&nbsp;        this.deposit = deposit;</b>
+<b class="nc">&nbsp;        this.treasureRoom = treasureRoom;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void run()
+&nbsp;    {
+&nbsp;        while (true)
+&nbsp;        {
+<b class="nc">&nbsp;            int target = random.nextInt(51 + 150);</b>
+<b class="nc">&nbsp;            ArrayList&lt;Valuables&gt; collectedGems = new ArrayList&lt;&gt;();</b>
+&nbsp;
+<b class="nc">&nbsp;            Log.getInstance().logAction(&quot;ValuableTransporter&quot;,</b>
+&nbsp;                    &quot;Picked a random number &quot; + target);
+&nbsp;
+<b class="nc">&nbsp;            while (collectedGems.size() &lt; target){</b>
+&nbsp;                try {
+<b class="nc">&nbsp;                    collectedGems.add(deposit.dequeue());</b>
+<b class="nc">&nbsp;                } catch (InterruptedException e) {</b>
+<b class="nc">&nbsp;                    throw new RuntimeException(e);</b>
+&nbsp;                }
+<b class="nc">&nbsp;                Log.getInstance().logAction(&quot;ValuableTransporter&quot;, &quot;Valuable added into cart, number of valuables in the cart &quot; + collectedGems.size());</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            Log.getInstance().logAction(&quot;ValuableTransporter&quot;,</b>
+<b class="nc">&nbsp;                    &quot;Moving &quot; + collectedGems.size() + &quot; gems to treasure room&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;            for (Valuables gem : collectedGems){</b>
+<b class="nc">&nbsp;                treasureRoom.add(&quot;ValuableTransporter&quot;, gem);</b>
+&nbsp;            }
+&nbsp;
+&nbsp;            try {
+<b class="nc">&nbsp;                Thread.sleep(random.nextInt(200) + 50);</b>
+<b class="nc">&nbsp;            } catch (InterruptedException e) {</b>
+<b class="nc">&nbsp;                Thread.currentThread().interrupt();</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-05-04 11:11</div>
+</div>
+</body>
+</html>
